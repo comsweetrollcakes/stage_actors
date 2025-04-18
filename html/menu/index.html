@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理画面メニュー</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">役者・舞台管理システム</h1>
+                <button class="hamburger" id="hamburger-menu" aria-label="メニューを開閉">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#" class="active">ダッシュボード</a></li>
+                    <li><a href="#">役者管理</a></li>
+                    <li><a href="#">劇団管理</a></li>
+                    <li><a href="#">舞台管理</a></li>
+                    <li><a href="#">舞台作品管理</a></li>
+                    <li><a href="#">ユーザ管理</a></li>
+                    <li><a href="#">権限管理</a></li>
+                    <li><a href="#">システム設定</a></li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <span class="username">ようこそ、山田太郎さん</span>
+                <a href="#" class="logout-button">ログアウト</a>
+            </div>
+        </aside>
+        <main class="main-content">
+            <!-- ここにメインコンテンツが入ります -->
+            <h2>メインコンテンツエリア</h2>
+            <p>ここに各機能の画面が表示されます。</p>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
