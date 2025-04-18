@@ -5,11 +5,11 @@
 
 body {
     margin: 0;
-    /* ★ モダンなフォントスタックに変更 */
+    /* モダンなフォントスタック */
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #333;
     display: flex;
-    background-color: #f9fafb; /* ← main-content と合わせるか、body に設定 */
+    background-color: #f9fafb;
 }
 
 a {
@@ -66,7 +66,7 @@ ul {
 }
 
 .hamburger {
-    display: none;
+    display: none; /* PCでは非表示 */
     background: none;
     border: none;
     cursor: pointer;
@@ -78,16 +78,26 @@ ul {
     background-color: #2c3e50;
     border-radius: 4px;
     padding: 8px;
+    /* ★ 透明度と表示状態のトランジションを追加 (レスポンシブ設定内に移動) */
+    /* transition: opacity 0.3s ease, visibility 0.3s ease; */
 }
 
+/* ハンバーガーアイコンの通常状態のスタイル */
 .hamburger span {
     display: block;
     width: 25px;
     height: 3px;
     background-color: #ecf0f1;
     margin: 5px 0;
-    transition: all 0.3s ease;
+    /* ★ transition は削除 (×印アニメーションが不要なため) */
+    /* transition: all 0.3s ease; */
+    transform: none;
+    opacity: 1;
 }
+.hamburger span:nth-child(1) { transform: none; }
+.hamburger span:nth-child(2) { opacity: 1; }
+.hamburger span:nth-child(3) { transform: none; }
+
 
 /* ナビゲーション */
 .main-nav {
@@ -133,7 +143,7 @@ ul {
 .logout-button {
     display: inline-block;
     padding: 8px 15px;
-    background-color: #e74c3c; /* ログアウトボタンの色は維持 */
+    background-color: #e74c3c;
     color: #fff;
     border-radius: 4px;
     font-size: 0.9em;
@@ -150,13 +160,13 @@ ul {
     margin-left: 250px;
     transition: margin-left 0.3s ease;
     padding: 2rem;
-    background-color: #f9fafb; /* body と同じか確認 */
+    background-color: #f9fafb;
 }
 
 /* --- モダンなスタイル --- */
 .content-section h2 {
     font-size: 1.8rem;
-    font-weight: 600; /* フォントによっては 500 の方が良い場合も */
+    font-weight: 600;
     color: #1f2937;
     margin-bottom: 1.5rem;
     border-bottom: 1px solid #e5e7eb;
@@ -186,7 +196,7 @@ ul {
     border-radius: 0.375rem;
     font-size: 0.9rem;
     transition: border-color 0.2s, box-shadow 0.2s;
-    font-family: inherit; /* bodyのフォントを継承 */
+    font-family: inherit;
 }
 .search-filter input[type="text"]:focus {
     outline: none;
@@ -204,7 +214,7 @@ ul {
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s;
-    font-family: inherit; /* bodyのフォントを継承 */
+    font-family: inherit;
 }
 .search-filter button:hover {
     background-color: #3b82f6;
@@ -225,7 +235,7 @@ ul {
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.2s;
-    font-family: inherit; /* bodyのフォントを継承 */
+    font-family: inherit;
 }
 .add-actor-button:hover {
     background-color: #14b8a6;
@@ -259,7 +269,7 @@ ul {
 
 .actor-name a {
     font-size: 1.1rem;
-    font-weight: 500; /* フォントによっては 400 の方が良い場合も */
+    font-weight: 500;
     color: #1f2937;
     text-decoration: none;
     transition: color 0.2s;
@@ -287,7 +297,7 @@ ul {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    font-family: inherit; /* bodyのフォントを継承 */
+    font-family: inherit;
 }
 .delete-button-modern:hover {
     background-color: #f43f5e;
@@ -318,24 +328,33 @@ ul {
     }
 
     .hamburger {
-        display: block;
+        display: block; /* スマホで表示 */
+        position: fixed; /* 位置固定 */
+        top: 15px;
+        left: 15px;
+        z-index: 1100; /* サイドバーより手前に */
+        /* ★ 透明度と表示状態のトランジションを追加 */
+        transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-     /* ハンバーガーメニューのアイコンアニメーション (×印) */
-    .hamburger.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    .hamburger.active span:nth-child(2) {
+     /* ★ サイドバーが開いているときにハンバーガーボタンを非表示にする */
+    body.sidebar-open .hamburger {
         opacity: 0;
+        visibility: hidden;
+        pointer-events: none; /* クリックも無効化 */
     }
-    .hamburger.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
+
+     /* ★ ハンバーガーメニューのアイコンアニメーション (×印) は不要なので削除 */
+    /*
+    .hamburger.active span:nth-child(1) { ... }
+    .hamburger.active span:nth-child(2) { ... }
+    .hamburger.active span:nth-child(3) { ... }
+    */
 
     .main-content {
         margin-left: 0;
         padding: 1.5rem;
-        padding-top: 70px;
+        padding-top: 70px; /* ハンバーガーボタンと被らないように調整 */
     }
 
     /* サイドバーが開いているときのオーバーレイ */
@@ -347,7 +366,7 @@ ul {
         width: 100%;
         height: 100%;
         background: rgba(0, 0, 0, 0.5);
-        z-index: 999;
+        z-index: 999; /* ハンバーガーより後ろ、サイドバーより手前 */
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0s 0.3s;
@@ -372,17 +391,17 @@ ul {
     }
 
     .add-actor-button {
-        justify-content: center; /* テキストとアイコンを中央揃え */
+        justify-content: center;
     }
     .actor-item {
-        flex-direction: column; /* カード内要素を縦積み */
-        align-items: flex-start; /* 左寄せ */
-        gap: 0.5rem; /* 要素間の垂直方向のスペース */
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
     .actor-actions {
-        width: 100%; /* 幅は100% */
-        justify-content: flex-end; /* ★ 右寄せに戻す */
-        margin-top: 0.5rem; /* ★ 上マージンを戻す */
+        width: 100%;
+        justify-content: flex-end; /* 右寄せ */
+        margin-top: 0.5rem; /* 上マージン */
         display: flex;
         gap: 0.8rem;
     }
@@ -393,7 +412,7 @@ ul {
 @media (max-width: 480px) {
     .main-content {
         padding: 1rem;
-        padding-top: 65px;
+        padding-top: 65px; /* ハンバーガーボタンと被らないように調整 */
     }
     .content-section h2 {
         font-size: 1.5rem;
@@ -415,6 +434,6 @@ ul {
          padding: 0.5rem 0.7rem;
     }
     .actor-actions {
-        margin-top: 0.4rem; /* ★ 上マージンを戻す */
+        margin-top: 0.4rem; /* 上マージン */
     }
 }
