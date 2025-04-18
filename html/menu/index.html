@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理画面メニュー</title>
+    <!-- 外部CSSファイルを読み込む -->
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,15 +21,15 @@
                 </button>
             </div>
             <nav class="main-nav">
-                <ul>
-                    <li><a href="#" class="active">ダッシュボード</a></li>
-                    <li><a href="#">役者管理</a></li>
-                    <li><a href="#">劇団管理</a></li>
-                    <li><a href="#">舞台管理</a></li>
-                    <li><a href="#">舞台作品管理</a></li>
-                    <li><a href="#">ユーザ管理</a></li>
-                    <li><a href="#">権限管理</a></li>
-                    <li><a href="#">システム設定</a></li>
+                 <ul>
+                    <li><a href="#dashboard-section" class="nav-link active">ダッシュボード</a></li>
+                    <li><a href="#actor-management-section" class="nav-link">役者管理</a></li>
+                    <li><a href="#troupe-management-section" class="nav-link">劇団管理</a></li>
+                    <li><a href="#stage-management-section" class="nav-link">舞台管理</a></li>
+                    <li><a href="#play-management-section" class="nav-link">舞台作品管理</a></li>
+                    <li><a href="#user-management-section" class="nav-link">ユーザ管理</a></li>
+                    <li><a href="#role-management-section" class="nav-link">権限管理</a></li>
+                    <li><a href="#system-settings-section" class="nav-link">システム設定</a></li>
                 </ul>
             </nav>
             <div class="user-info">
@@ -37,13 +38,188 @@
             </div>
         </aside>
         <main class="main-content">
-            <!-- ここにメインコンテンツが入ります -->
-            <h2>メインコンテンツエリア</h2>
-            <p>ここに各機能の画面が表示されます。</p>
+            <!-- ダッシュボード (初期表示) -->
+            <section id="dashboard-section" class="content-section">
+                <h2>ダッシュボード</h2>
+                <p>ここにダッシュボードのコンテンツが表示されます。</p>
+            </section>
+
+            <!-- 役者管理 -->
+            <section id="actor-management-section" class="content-section" style="display: none;">
+                <h2>役者管理</h2>
+
+                <div class="actor-management-header">
+                    <div class="search-filter">
+                        <input type="text" id="actor-search" placeholder="氏名で検索...">
+                        <button type="button">検索</button>
+                    </div>
+                    <!-- 新規役者登録ボタン -->
+                    <a href="#/actors/new" class="add-actor-button">
+                        <span class="icon">+</span> <!-- アイコン -->
+                        <span>新規登録</span>
+                    </a>
+                </div>
+
+                <!-- モダンな役者リスト -->
+                <div class="actor-list-modern">
+                    <!-- 以下はサンプルデータです。実際には動的に生成されます。 -->
+                    <div class="actor-item">
+                        <div class="actor-name">
+                            <a href="#/actors/edit/1">山田 太郎</a> <!-- 編集画面へのリンク例 -->
+                        </div>
+                        <div class="actor-actions">
+                            <button type="button" class="delete-button-modern" title="削除" data-actor-id="1">
+                                <span class="icon">🗑️</span> <!-- ゴミ箱の絵文字アイコン -->
+                                <span>削除</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="actor-item">
+                        <div class="actor-name">
+                            <a href="#/actors/edit/2">佐藤 花子</a>
+                        </div>
+                        <div class="actor-actions">
+                             <button type="button" class="delete-button-modern" title="削除" data-actor-id="2">
+                                <span class="icon">🗑️</span>
+                                <span>削除</span>
+                            </button>
+                        </div>
+                    </div>
+
+                     <div class="actor-item">
+                        <div class="actor-name">
+                            <a href="#/actors/edit/3">鈴木 一郎</a>
+                        </div>
+                        <div class="actor-actions">
+                             <button type="button" class="delete-button-modern" title="削除" data-actor-id="3">
+                                <span class="icon">🗑️</span>
+                                <span>削除</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 役者データがここに追加されます -->
+                </div>
+            </section>
+
+            <!-- 他の管理機能セクション -->
+            <section id="troupe-management-section" class="content-section" style="display: none;">
+                <h2>劇団管理</h2>
+                <p>劇団管理のコンテンツがここに表示されます。</p>
+            </section>
+            <section id="stage-management-section" class="content-section" style="display: none;">
+                <h2>舞台管理</h2>
+                <p>舞台管理のコンテンツがここに表示されます。</p>
+            </section>
+             <section id="play-management-section" class="content-section" style="display: none;">
+                <h2>舞台作品管理</h2>
+                <p>舞台作品管理のコンテンツがここに表示されます。</p>
+            </section>
+             <section id="user-management-section" class="content-section" style="display: none;">
+                <h2>ユーザ管理</h2>
+                <p>ユーザ管理のコンテンツがここに表示されます。</p>
+            </section>
+             <section id="role-management-section" class="content-section" style="display: none;">
+                <h2>権限管理</h2>
+                <p>権限管理のコンテンツがここに表示されます。</p>
+            </section>
+             <section id="system-settings-section" class="content-section" style="display: none;">
+                <h2>システム設定</h2>
+                <p>システム設定のコンテンツがここに表示されます。</p>
+            </section>
+
         </main>
     </div>
 
-    <script src="script.js"></script>
-</body>
+    <script>
+        // JavaScriptは変更なし (前回の回答と同じ)
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.main-nav .nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const sidebar = document.querySelector('.sidebar');
+            const hamburger = document.getElementById('hamburger-menu');
+            const body = document.body; // body要素を取得
 
+            function setActiveSection(targetId) {
+                const targetSection = document.querySelector(targetId);
+                if (!targetSection || !targetSection.classList.contains('content-section')) {
+                    console.warn(`Section with id ${targetId} not found or invalid.`);
+                    targetId = '#dashboard-section'; // フォールバック
+                }
+
+                contentSections.forEach(section => {
+                    section.style.display = (('#' + section.id) === targetId) ? 'block' : 'none';
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === targetId);
+                });
+
+                // モバイル表示でメニューを閉じる
+                if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    hamburger.classList.remove('active'); // ハンバーガーアイコンを元に戻す
+                    body.classList.remove('sidebar-open'); // bodyのクラスも削除
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    setActiveSection(targetId);
+                    // history.pushState(null, null, targetId); // SPA風にする場合
+                });
+            });
+
+            if (hamburger && sidebar) {
+                hamburger.addEventListener('click', (event) => {
+                    event.stopPropagation(); // クリックイベントがbodyに伝播しないように
+                    sidebar.classList.toggle('open');
+                    hamburger.classList.toggle('active'); // ハンバーガーアイコンのアニメーション用クラス
+                    body.classList.toggle('sidebar-open'); // bodyにクラスをトグル
+                });
+
+                // オーバーレイ（body::after）またはメインコンテンツ部分クリックで閉じる
+                document.addEventListener('click', (event) => {
+                    // サイドバーが開いていて、クリックがサイドバー内でもハンバーガーボタンでもない場合
+                    if (body.classList.contains('sidebar-open') && !sidebar.contains(event.target) && !hamburger.contains(event.target)) {
+                         sidebar.classList.remove('open');
+                         hamburger.classList.remove('active');
+                         body.classList.remove('sidebar-open');
+                    }
+                });
+            }
+
+            const currentHash = window.location.hash || '#dashboard-section';
+            setActiveSection(currentHash);
+
+            // window.addEventListener('popstate', () => { // SPA風にする場合
+            //     setActiveSection(window.location.hash || '#dashboard-section');
+            // });
+
+            const actorManagementSection = document.getElementById('actor-management-section');
+            if (actorManagementSection) {
+                actorManagementSection.addEventListener('click', (event) => {
+                    const deleteButton = event.target.closest('.delete-button-modern');
+                    if (deleteButton) {
+                        const actorId = deleteButton.dataset.actorId;
+                        const actorName = deleteButton.closest('.actor-item')?.querySelector('.actor-name a')?.textContent || `ID: ${actorId}`;
+                        if (confirm(`${actorName} を削除しますか？（ダミー）`)) {
+                            console.log(`Deleting actor ${actorId}`);
+                            deleteButton.closest('.actor-item')?.remove();
+                        }
+                    }
+
+                    const searchButton = event.target.closest('.search-filter button');
+                    if(searchButton) {
+                        const searchInput = actorManagementSection.querySelector('#actor-search');
+                        const query = searchInput ? searchInput.value : '';
+                        alert(`「${query}」で検索します（ダミー）`);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
 </html>
