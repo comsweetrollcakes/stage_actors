@@ -23,3 +23,18 @@ export default defineConfig(({ mode }) => {
     };
   }
 });
+function client(): import("vite").PluginOption {
+  return {
+    name: 'client-plugin',
+    configureServer(server) {
+      console.log('Client mode active');
+    },
+    transformIndexHtml(html) {
+      return html.replace(
+        '<!-- inject -->',
+        '<script src="/client-entry.js"></script>'
+      );
+    },
+  };
+}
+
