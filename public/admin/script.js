@@ -1,8 +1,16 @@
+/**
+ * DOMの読み込みが完了した時に実行される初期化関数
+ * パスワード表示切り替えとフォーム送信の制御を設定する
+ */
 document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('password');
     const togglePasswordButton = document.getElementById('toggle-password');
     const toggleIcon = togglePasswordButton.querySelector('i');
 
+    /**
+     * パスワード表示/非表示を切り替えるボタンのクリックイベントハンドラー
+     * パスワードの表示状態とアイコンの表示を切り替える
+     */
     togglePasswordButton.addEventListener('click', function() {
         // Toggle the type attribute
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -20,7 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Optional: Add form submission handling here if needed
+    /**
+     * ログインフォームの送信イベントハンドラー
+     * フォームのデフォルトの送信処理を防ぎ、カスタムの処理を実行する
+     * @param {Event} event - フォーム送信イベントオブジェクト
+     */
     const loginForm = document.getElementById('login-form');
     loginForm.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent actual form submission for this example

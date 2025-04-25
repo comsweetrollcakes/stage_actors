@@ -10,8 +10,13 @@
  */
 import { showRoutes } from 'hono/dev'
 import { createApp } from 'honox/server'
+import { serveStatic } from '@hono/node-server/serve-static'
 
 const app = createApp()
+
+// 静的ファイルの提供設定を追加
+app.use('/admin/*', serveStatic({ root: './public' }))
+app.use('/*', serveStatic({ root: './public' }))
 
 showRoutes(app)
 
