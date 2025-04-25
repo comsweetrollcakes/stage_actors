@@ -1,34 +1,52 @@
 import { createRoute } from 'honox/factory'
-import Counter from '../islands/counter'
 
 /**
  * インデックスページのルートハンドラー
  * @description
- * アプリケーションのメインページを処理するルートハンドラー。
- * クエリパラメータで指定された名前を表示し、Counterコンポーネントを含む。
+ * トップページの表示およびログイン処理を行うルートハンドラー。
  * 
  * @param {Context} c - Honoのコンテキストオブジェクト
- * @param {Object} c.req.query - リクエストのクエリパラメータ
- * @param {string} [c.req.query('name')] - 表示する名前（デフォルト: 'Hono'）
- * 
  * @returns {Promise<Response>} レンダリングされたHTMLレスポンス
- * 
- * @example
- * ```
- * // 基本的な使用
- * GET /
- * 
- * // 名前を指定して使用
- * GET /?name=User
- * ```
  */
 export default createRoute((c) => {
-  const name = c.req.query('name') ?? 'Hono'
   return c.render(
-    <div class="py-8 text-center">
-      <title>{name}</title>
-      <h1 class="text-3xl font-bold">Hello, {name}!</h1>
-      <Counter />
+    <div>
+      <h1>舞台・役者マスタ管理システム</h1>
+      <p>メイン画面から機能を選択してください：</p>
+      <div>
+        <a href="/login" className="button">ログイン</a>
+      </div>
     </div>
   )
+})
+
+/**
+ * ログイン処理を行うPOSTルートハンドラー
+ */
+export const POST = createRoute(async (c) => {
+  try {
+    const { email, password } = await c.req.json()
+
+    // TODO: 実際の環境では、ここでデータベースを使用した認証を行う
+    if (email && password) {
+      // 認証成功時
+      return c.json({
+        success: true,
+        redirectTo: '/menu'
+      })
+    }
+
+    // 認証失敗時
+    return c.json({
+      success: false,
+      message: 'メールアドレスとパスワードを入力してください。'
+    }, 400)
+
+  } catch (error) {
+    console.error('ログインエラー:', error);
+    return c.json({
+      success: false,
+      message: 'ログイン処理中にエラーが発生しました。'
+    }, 500)
+  }
 })
