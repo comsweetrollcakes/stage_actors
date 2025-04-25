@@ -7,22 +7,30 @@ import { defineConfig } from 'vite'
 export default defineConfig(({ mode }) => {
   if (mode === "client") {
     return {
-      plugins: [client()],
-    };
-  } else {
-
-    return {
-      plugins: [
-        honox({
-          devServer: { adapter },
-          client: { input: ['./app/style.css'] }
-        }),
-        tailwindcss(),
-        build()
-      ]
+      build: {
+        rollupOptions: {
+          input: './app/client.ts',
+          output: {
+            entryFileNames: 'client.js'
+          }
+        }
+      },
+      plugins: [client()]
     };
   }
+
+  return {
+    plugins: [
+      honox({
+        devServer: { adapter },
+        client: { input: ['./app/style.css'] }
+      }),
+      tailwindcss(),
+      build()
+    ]
+  };
 });
+
 function client(): import("vite").PluginOption {
   return {
     name: 'client-plugin',
@@ -32,9 +40,8 @@ function client(): import("vite").PluginOption {
     transformIndexHtml(html) {
       return html.replace(
         '<!-- inject -->',
-        '<script src="/client-entry.js"></script>'
+        '<script src="/client.js"></script>'
       );
     },
   };
 }
-

@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const togglePasswordButton = document.getElementById('toggle-password');
     const toggleIcon = togglePasswordButton.querySelector('i');
 
-    // パスワード表示/非表示の切り替え
+    // パスワード表示切り替え
     togglePasswordButton.addEventListener('click', function() {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ログインフォームの送信処理
+    // ログインフォームの送信
     loginForm.addEventListener('submit', async function(event) {
         event.preventDefault();
 
@@ -28,11 +28,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('password').value;
         const remember = document.getElementById('remember').checked;
 
-        if (!email || !password) {
-            alert('メールアドレスとパスワードを入力してください。');
-            return;
-        }
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password, remember })
+            });
 
-        window.location.href = '/menu';
+            const data = await response.json();
+
+            if (data.success) {
+                window.location.href = data.redirectTo;
+            } else {
+                alert(data.message || 'ログインに失敗しました。');
+            }
+        } catch (error) {
+            console.error('ログインエラー:', error);
+            alert('ログイン処理中にエラーが発生しました。');
+        }
     });
 });
