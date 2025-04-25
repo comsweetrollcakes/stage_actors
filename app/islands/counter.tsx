@@ -1,5 +1,20 @@
 import { useState } from 'hono/jsx'
 
+/**
+ * カウンター機能を持つインタラクティブなコンポーネント
+ * @description
+ * シンプルなカウンターコンポーネント。ボタンクリックでカウントを増加させる。
+ * Islands Architectureに基づいてクライアントサイドでインタラクティブに動作する。
+ * 
+ * @returns {JSX.Element} カウンター値とインクリメントボタンを含むUI要素
+ * 
+ * @example
+ * ```tsx
+ * <Counter />
+ * ```
+ * 
+ * @state count - 現在のカウント値（初期値: 0）
+ */
 export default function Counter() {
   const [count, setCount] = useState(0)
   return (
