@@ -98,4 +98,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    /**
+     * ログアウトボタンのイベントハンドラー設定
+     */
+    const logoutButton = document.querySelector('.logout-button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', async (event) => {
+            event.preventDefault();
+            
+            try {
+                // サーバーにログアウトリクエストを送信
+                const response = await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // ログアウト成功時、ログイン画面にリダイレクト
+                    window.location.href = '/login';
+                } else {
+                    console.error('ログアウトに失敗しました');
+                    alert('ログアウトに失敗しました。もう一度お試しください。');
+                }
+            } catch (error) {
+                console.error('ログアウトエラー:', error);
+                alert('ログアウト処理中にエラーが発生しました。もう一度お試しください。');
+            }
+        });
+    }
 });
