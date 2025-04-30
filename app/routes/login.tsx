@@ -11,7 +11,7 @@ import { createRoute } from 'honox/factory'
 export const POST = createRoute(async (c) => {
   try {
     const { email, password } = await c.req.json()
-    console.log('ログイン試行:', email) // ログを追加
+    console.log('ログイン試行:', email)
 
     // データベースからユーザーを検索
     const { results } = await c.env.stage_actors.prepare(
@@ -21,7 +21,7 @@ export const POST = createRoute(async (c) => {
     const user = results[0]
 
     if (!user) {
-      console.log('ユーザーが見つかりません:', email) // ログを追加
+      console.log('ユーザーが見つかりません:', email)
       return c.json({ 
         success: false, 
         message: 'メールアドレスまたはパスワードが間違っています' 
@@ -33,7 +33,7 @@ export const POST = createRoute(async (c) => {
     const isValid = hash === user.password_hash
 
     if (!isValid) {
-      console.log('パスワードが一致しません:', email) // ログを追加
+      console.log('パスワードが一致しません:', email)
       return c.json({ 
         success: false, 
         message: 'メールアドレスまたはパスワードが間違っています' 
@@ -50,10 +50,10 @@ export const POST = createRoute(async (c) => {
         throw new Error('最終ログイン日時の更新に失敗しました')
       }
 
-      console.log('ログイン成功:', email) // ログを追加
+      console.log('ログイン成功:', email)
       return c.json({ 
         success: true,
-        redirectTo: '/admin/menu'
+        redirectTo: '/admin/menu'  // メニュー画面へのリダイレクトに修正
       })
     } catch (updateError) {
       console.error('最終ログイン日時の更新エラー:', updateError)

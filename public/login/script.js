@@ -23,41 +23,54 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ログインフォームの送信処理
-    if (loginForm) {
-        loginForm.addEventListener('submit', async function(event) {
+    // ログインボタンのクリックイベント
+    const loginButton = document.querySelector('.login-button');
+    if (loginButton) {
+        loginButton.addEventListener('click', function(event) {
             event.preventDefault();
-
-            const email = document.getElementById('email').value;
-            const password = passwordInput.value;
-            const remember = document.getElementById('remember').checked;
-
-            try {
-                const response = await fetch('/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email,
-                        password,
-                        remember
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    // 相対パスを絶対パスに変換してリダイレクト
-                    const baseUrl = window.location.origin;
-                    window.location.href = baseUrl + data.redirectTo;
-                } else {
-                    alert(data.message || 'ログインに失敗しました。');
-                }
-            } catch (error) {
-                console.error('ログインエラー:', error);
-                alert('ログイン処理中にエラーが発生しました。');
-            }
+            handleLogin();
         });
+    }
+
+    // フォームのsubmitイベント
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            handleLogin();
+        });
+    }
+
+    // ログイン処理
+    async function handleLogin() {
+        const email = document.getElementById('email').value;
+        const password = passwordInput.value;
+        const remember = document.getElementById('remember').checked;
+
+        try {
+            console.log('ログインリクエスト送信開始');
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                    remember
+                })
+            });
+
+            const data = await response.json();
+            console.log('サーバーレスポンス:', data);
+
+            if (data.success) {
+                window.location.href = data.redirectTo;
+            } else {
+                alert(data.message || 'ログインに失敗しました。');
+            }
+        } catch (error) {
+            console.error('ログインエラー:', error);
+            alert('ログイン処理中にエラーが発生しました。');
+        }
     }
 });
