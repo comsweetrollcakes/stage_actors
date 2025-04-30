@@ -86,7 +86,7 @@ export default createRoute({
 
       return c.json({ 
         success: true,
-        redirectTo: '/admin'
+        redirectTo: '/menu'
       })
     } catch (error) {
       console.error('ログインエラー:', error)

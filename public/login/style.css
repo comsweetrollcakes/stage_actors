@@ -1,6 +1,5 @@
 /* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
 :root {
     /* Color Palette */
     --primary-color: #4a69bd; /* Slightly softer blue */
@@ -8,7 +7,7 @@
     --secondary-color: #7f8fa6; /* Greyish blue */
     --accent-color: #6a89cc; /* Lighter blue for accents */
     --background-start: #eef1f5; /* Light greyish blue */
-    --background-end: #f7f9fc;   /* Very light grey */
+    --background-end: #f7f9fc; /* Very light grey */
     --container-bg: #ffffff;
     --text-color: #2f3542; /* Dark grey */
     --text-light: #57606f;

@@ -20,13 +20,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ログインフォームの送信
+    // ログインフォームの送信処理
     loginForm.addEventListener('submit', async function(event) {
         event.preventDefault();
 
         const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+        const password = passwordInput.value;
         const remember = document.getElementById('remember').checked;
+
+        if (!email || !password) {
+            alert('メールアドレスとパスワードを入力してください。');
+            return;
+        }
 
         try {
             const response = await fetch('/login', {
@@ -34,7 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password, remember })
+                body: JSON.stringify({
+                    email,
+                    password,
+                    remember
+                })
             });
 
             const data = await response.json();
