@@ -11,6 +11,7 @@ import { createRoute } from 'honox/factory'
 export const POST = createRoute(async (c) => {
   try {
     const { email, password } = await c.req.json()
+    console.log('ログイン試行:', email) // ログを追加
 
     // データベースからユーザーを検索
     const { results } = await c.env.stage_actors.prepare(
@@ -20,6 +21,7 @@ export const POST = createRoute(async (c) => {
     const user = results[0]
 
     if (!user) {
+      console.log('ユーザーが見つかりません:', email) // ログを追加
       return c.json({ 
         success: false, 
         message: 'メールアドレスまたはパスワードが間違っています' 
@@ -31,21 +33,35 @@ export const POST = createRoute(async (c) => {
     const isValid = hash === user.password_hash
 
     if (!isValid) {
+      console.log('パスワードが一致しません:', email) // ログを追加
       return c.json({ 
         success: false, 
         message: 'メールアドレスまたはパスワードが間違っています' 
       }, 401)
     }
 
-    // 最終ログイン日時を更新
-    await c.env.stage_actors.prepare(
-      'UPDATE Users SET last_login_at = CURRENT_TIMESTAMP WHERE user_id = ?'
-    ).bind(user.user_id).run()
+    try {
+      // 最終ログイン日時を更新
+      const updateResult = await c.env.stage_actors.prepare(
+        'UPDATE Users SET last_login_at = datetime("now") WHERE user_id = ?'
+      ).bind(user.user_id).run()
 
-    return c.json({ 
-      success: true,
-      redirectTo: '/admin/menu'
-    })
+      if (!updateResult.success) {
+        throw new Error('最終ログイン日時の更新に失敗しました')
+      }
+
+      console.log('ログイン成功:', email) // ログを追加
+      return c.json({ 
+        success: true,
+        redirectTo: '/admin/menu'
+      })
+    } catch (updateError) {
+      console.error('最終ログイン日時の更新エラー:', updateError)
+      return c.json({ 
+        success: false, 
+        message: 'ログイン処理中にエラーが発生しました' 
+      }, 500)
+    }
   } catch (error) {
     console.error('ログインエラー:', error)
     return c.json({ 

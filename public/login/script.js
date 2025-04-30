@@ -48,7 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
 
                 if (data.success) {
-                    window.location.href = data.redirectTo;
+                    // 相対パスを絶対パスに変換してリダイレクト
+                    const baseUrl = window.location.origin;
+                    window.location.href = baseUrl + data.redirectTo;
                 } else {
                     alert(data.message || 'ログインに失敗しました。');
                 }
