@@ -4,21 +4,27 @@ import { createRoute } from 'honox/factory'
  * 管理者ログインページのルートハンドラー
  * @description
  * 管理者ログインページを表示するルートハンドラー。
- * loginページにリダイレクトする。
+ * クエリパラメータがある場合はログインページにリダイレクトする。
+ * それ以外の場合はメニュー画面を表示する。
  * 
  * @param {Context} c - Honoのコンテキストオブジェクト
  * @returns {Response} リダイレクトレスポンス
- * 
- * @example
- * ```
- * GET /admin
- * ```
  */
 export default createRoute((c) => {
-  // URLにクエリパラメータがある場合は、ログインページにリダイレクト
-  if (c.req.url.includes('?')) {
-    return c.redirect('/login')
-  }
+  const url = new URL(c.req.url);
   
-  return c.redirect('/admin/menu')
+  // クエリパラメータがある場合（ログインフォームからのGET）
+  if (url.search) {
+    console.log('ログインフォームからのGETリクエストを検出。ログインページにリダイレクト');
+    return c.redirect('/login');
+  }
+
+  // index.htmlへのアクセスの場合もログインページにリダイレクト
+  if (url.pathname.includes('index.html')) {
+    console.log('index.htmlへのアクセスを検出。ログインページにリダイレクト');
+    return c.redirect('/login');
+  }
+
+  // 通常のアクセスの場合はメニュー画面にリダイレクト
+  return c.redirect('/admin/menu');
 })

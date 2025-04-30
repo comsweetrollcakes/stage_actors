@@ -15,7 +15,7 @@
                 <h2>ログイン</h2>
                 <p>舞台・役者マスタ管理システムへようこそ</p>
             </div>
-            <form id="login-form" method="post" action="/login" onsubmit="return false;">
+            <form id="login-form" onsubmit="event.preventDefault(); return false;">
                 <div class="input-group">
                     <label for="email"><i class="fas fa-envelope"></i> ユーザID (メールアドレス)</label>
                     <input type="email" id="email" name="email" placeholder="例: user@example.com" required>
@@ -36,7 +36,7 @@
                     </div>
                     <a href="#" class="forgot-password">パスワードをお忘れですか？</a>
                 </div>
-                <button type="submit" class="login-button">ログイン</button>
+                <button type="button" class="login-button">ログイン</button>
             </form>
             <!-- 新規登録ボタンを含むフッターを削除 -->
         </div>
