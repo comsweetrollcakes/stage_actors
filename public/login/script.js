@@ -6,6 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const togglePasswordButton = document.getElementById('toggle-password');
     const loginButton = document.querySelector('.login-button');
 
+    // フォームの設定を初期化
+    if (loginForm) {
+        // GETリクエストを防止するための設定
+        loginForm.setAttribute('method', 'post');
+        loginForm.setAttribute('action', '/login');
+        loginForm.removeAttribute('action'); // actionを削除してデフォルトの送信先を防ぐ
+    }
+
     // パスワード表示切り替え
     if (togglePasswordButton) {
         togglePasswordButton.addEventListener('click', function() {
@@ -31,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loginButton.addEventListener('click', function(event) {
             console.log('Login button clicked');
             event.preventDefault();
+            event.stopPropagation();
             handleLogin();
         });
     } else {
@@ -44,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             event.stopPropagation();
             return false;
-        });
+        }, true); // キャプチャフェーズでイベントを捕捉
     }
 
     // ログイン処理
