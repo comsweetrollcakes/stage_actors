@@ -28,8 +28,6 @@ export const POST = createRoute(async (c) => {
 
     // パスワードの検証
     const hash = await hashPassword(password)
-    console.log('Input password hash:', hash) // デバッグ用
-    console.log('Stored hash:', user.password_hash) // デバッグ用
     const isValid = hash === user.password_hash
 
     if (!isValid) {
