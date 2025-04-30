@@ -37,6 +37,34 @@ npm run deploy
 1. プロジェクトのビルド
 2. Cloudflare Workersへのデプロイ
 
+### データベース操作
+
+#### マイグレーションの実行
+```bash
+npm run migrate
+```
+データベースの最新のスキーマ変更を適用します。
+
+#### データベースの初期化
+```bash
+npm run db:init
+```
+データベースを初期化し、必要な初期データを投入します。
+
+### 開発補助コマンド
+
+#### テストの実行
+```bash
+npm run test          # すべてのテストを実行
+npm run test:watch   # ウォッチモードでテストを実行
+```
+
+#### リンターの実行
+```bash
+npm run lint         # コードのリント実行
+npm run lint:fix     # リント実行と自動修正
+```
+
 ## 技術スタック
 
 - HonoX - Webフレームワーク
