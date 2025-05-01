@@ -53,6 +53,19 @@ npm run db:init
 
 ### 開発補助コマンド
 
+#### FigmaのMCPサーバー
+
+##### サーバーの起動
+```bash
+npm run mcp:start
+```
+このコマンドでFigma APIと連携するMCPサーバーが起動します。
+
+##### 提供される機能
+- サーバー名: figma-server
+- 利用可能なツール:
+  - get-design: Figmaからデザイン情報を取得するツール
+
 #### テストの実行
 ```bash
 npm run test          # すべてのテストを実行
