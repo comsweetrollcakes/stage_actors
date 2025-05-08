@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             try {
                 // サーバーにログアウトリクエストを送信
-                const response = await fetch('/api/logout', {
+                const response = await fetch('/logout', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
